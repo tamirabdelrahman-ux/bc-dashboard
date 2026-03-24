@@ -17,33 +17,6 @@ file1 = r"Final_Blood_ReportB.xlsx"
 # Read Excel
 # -----------------------------------
 df = pd.read_excel(file1)
-
-# -----------------------------------
-# Data Cleaning
-# -----------------------------------
-df["COLLECT_DT_TM"] = df["COLLECT_DT_TM"].astype(str)
-
-df["COLLECT_DT_TM"] = df["COLLECT_DT_TM"].str.replace(r"\.\d+", "", regex=True)
-
-df["COLLECT_DT_TM"] = pd.to_datetime(
-    df["COLLECT_DT_TM"],
-    format="%Y-%m-%d %H:%M:%S",
-    errors="coerce"
-)
-
-df = df.dropna(subset=["COLLECT_DT_TM"])
-
-df["Month"] = df["COLLECT_DT_TM"].dt.to_period("M").astype(str)
-
-df["Month_Date"] = df["COLLECT_DT_TM"].dt.to_period("M").dt.to_timestamp()
-
-df["Volume_ml"] = (
-    df["Sample Volume"]
-    .astype(str)
-    .str.replace(" mL", "", regex=False)
-    .astype(float)
-)
-
 # -----------------------------------
 # Sidebar Filters
 # -----------------------------------
