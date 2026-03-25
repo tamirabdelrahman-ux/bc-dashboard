@@ -147,7 +147,7 @@ trend_df = df[df["LOC_NURSE_UNIT"].isin(locations)]
 
 monthly_location_summary = (
     trend_df
-    .groupby(["Month_Date", "LOC_NURSE_UNIT"])
+    .groupby(["Month", "LOC_NURSE_UNIT"])
     .agg(
         Total=("Volume_ml", "count"),
         Compliant=("Volume_ml", lambda x: (x >= 5).sum())
