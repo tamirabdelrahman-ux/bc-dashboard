@@ -160,7 +160,7 @@ monthly_location_summary["Compliance %"] = (
     monthly_location_summary["Total"]
 ) * 100
 
-monthly_location_summary = monthly_location_summary.sort_values("Month_Date")
+monthly_location_summary = monthly_location_summary.sort_values("Month")
 
 # -----------------------------------
 # Trend Chart
@@ -174,7 +174,7 @@ for location in monthly_location_summary["LOC_NURSE_UNIT"].unique():
     ]
 
     ax2.plot(
-        location_data["Month_Date"],
+        location_data["Month"],
         location_data["Compliance %"],
         marker="o",
         linewidth=2,
