@@ -25,8 +25,8 @@ st.sidebar.header("Filters")
 
 locations = st.sidebar.multiselect(
     "Select Location(s)",
-    options=sorted(df["LOC_NURSE_UNIT"].unique()),
-    default=sorted(df["LOC_NURSE_UNIT"].unique())
+    options=sorted(df["loc_nurse_unit"].unique()),
+    default=sorted(df["loc_nurse_unit"].unique())
 )
 
 selected_month = st.sidebar.selectbox(
@@ -38,7 +38,7 @@ selected_month = st.sidebar.selectbox(
 # Apply Filters
 # -----------------------------------
 filtered_df = df[
-    (df["LOC_NURSE_UNIT"].isin(locations)) &
+    (df["loc_nurse_unit"].isin(locations)) &
     (df["Month"] == selected_month)
 ]
 
@@ -111,7 +111,7 @@ if not location_summary.empty:
     fig1, ax1 = plt.subplots(figsize=(10,6))
 
     ax1.bar(
-        location_chart["LOC_NURSE_UNIT"],
+        location_chart["loc_nurse_unit"],
         location_chart["Compliance %"],
         color=colors
     )
@@ -143,11 +143,11 @@ else:
 # -----------------------------------
 st.subheader("📈 Monthly Compliance Trend by Location")
 
-trend_df = df[df["LOC_NURSE_UNIT"].isin(locations)]
+trend_df = df[df["loc_nurse_unit"].isin(locations)]
 
 monthly_location_summary = (
     trend_df
-    .groupby(["Month", "LOC_NURSE_UNIT"])
+    .groupby(["Month", "loc_nurse_unit"])
     .agg(
         Total=("Volume_ml", "count"),
         Compliant=("Volume_ml", lambda x: (x >= 5).sum())
@@ -167,10 +167,10 @@ monthly_location_summary = monthly_location_summary.sort_values("Month")
 # -----------------------------------
 fig2, ax2 = plt.subplots(figsize=(10,6))
 
-for location in monthly_location_summary["LOC_NURSE_UNIT"].unique():
+for location in monthly_location_summary["loc_nurse_unit"].unique():
 
     location_data = monthly_location_summary[
-        monthly_location_summary["LOC_NURSE_UNIT"] == location
+        monthly_location_summary["loc_nurse_unit"] == location
     ]
 
     ax2.plot(
