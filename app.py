@@ -48,7 +48,7 @@ filtered_df = df[
 total_samples = len(filtered_df)
 
 compliant_samples = len(
-    filtered_df[filtered_df["Volume_ml"] >= 5]
+    filtered_df[filtered_df["volume_ml"] >= 5]
 )
 
 compliance_rate = (
@@ -76,8 +76,8 @@ location_summary = (
     filtered_df
     .groupby("loc_nurse_unit")
     .agg(
-        Total=("Volume_ml", "count"),
-        Compliant=("Volume_ml", lambda x: (x >= 5).sum())
+        Total=("volume_ml", "count"),
+        Compliant=("volume_ml", lambda x: (x >= 5).sum())
     )
     .reset_index()
 )
@@ -149,8 +149,8 @@ monthly_location_summary = (
     trend_df
     .groupby(["month", "loc_nurse_unit"])
     .agg(
-        Total=("Volume_ml", "count"),
-        Compliant=("Volume_ml", lambda x: (x >= 5).sum())
+        Total=("volume_ml", "count"),
+        Compliant=("volume_ml", lambda x: (x >= 5).sum())
     )
     .reset_index()
 )
