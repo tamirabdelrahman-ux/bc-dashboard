@@ -160,7 +160,7 @@ monthly_location_summary["Compliance %"] = (
     monthly_location_summary["Total"]
 ) * 100
 
-monthly_location_summary = monthly_location_summary.sort_values("Month")
+monthly_location_summary = monthly_location_summary.sort_values("month")
 
 # -----------------------------------
 # Trend Chart
