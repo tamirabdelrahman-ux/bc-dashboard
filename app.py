@@ -31,7 +31,7 @@ locations = st.sidebar.multiselect(
 
 selected_month = st.sidebar.selectbox(
     "Select Month",
-    options=sorted(df["Month"].unique())
+    options=sorted(df["month"].unique())
 )
 
 # -----------------------------------
@@ -39,7 +39,7 @@ selected_month = st.sidebar.selectbox(
 # -----------------------------------
 filtered_df = df[
     (df["loc_nurse_unit"].isin(locations)) &
-    (df["Month"] == selected_month)
+    (df["month"] == selected_month)
 ]
 
 # -----------------------------------
@@ -74,7 +74,7 @@ st.subheader("📊 Location-wise Performance")
 
 location_summary = (
     filtered_df
-    .groupby("LOC_NURSE_UNIT")
+    .groupby("loc_nurse_unit")
     .agg(
         Total=("Volume_ml", "count"),
         Compliant=("Volume_ml", lambda x: (x >= 5).sum())
@@ -147,7 +147,7 @@ trend_df = df[df["loc_nurse_unit"].isin(locations)]
 
 monthly_location_summary = (
     trend_df
-    .groupby(["Month", "loc_nurse_unit"])
+    .groupby(["month", "loc_nurse_unit"])
     .agg(
         Total=("Volume_ml", "count"),
         Compliant=("Volume_ml", lambda x: (x >= 5).sum())
@@ -174,7 +174,7 @@ for location in monthly_location_summary["loc_nurse_unit"].unique():
     ]
 
     ax2.plot(
-        location_data["Month"],
+        location_data["month"],
         location_data["Compliance %"],
         marker="o",
         linewidth=2,
