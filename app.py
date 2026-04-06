@@ -77,7 +77,7 @@ location_summary = (
     .groupby("loc_nurse_unit")
     .agg(
         Total=("volume_ml", "count"),
-        Compliant=("Volume_ml", lambda x: (x >= 5).sum())
+        Compliant=("volume_ml", lambda x: (x >= 5).sum())
     )
     .reset_index()
 )
